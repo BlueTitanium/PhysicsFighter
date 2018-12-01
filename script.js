@@ -15,18 +15,10 @@ var render = Render.create({
     element: document.body,
     engine: engine,
     options: {
-<<<<<<< HEAD
     width: window.innerWidth-20,
     height: window.innerHeight-20,
     enabled: true,
     background: '#ffffff',
-    showMousePosition: false
-=======
-    background: '#ff0000',
-    showMousePosition: false,
-    width: window.innerWidth-20,
-    height: window.innerHeight-20
->>>>>>> 8f2b289f82472dc333e03bfc33bff9185c708537
   }
 });
 
