@@ -27,11 +27,17 @@ render.options.wireframes = false;
 var boxA = Bodies.rectangle(400, 200, 80, 80, {
   render: {
          fillStyle: 'red',
+         strokeStyle: 'red',
+         lineWidth: 3
+    }
+});
+var boxB = Bodies.rectangle(450, 50, 80, 80,  {
+  render: {
+         fillStyle: 'blue',
          strokeStyle: 'blue',
          lineWidth: 3
     }
 });
-var boxB = Bodies.rectangle(450, 50, 80, 80);
 var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
 
 // add all of the bodies to the world
