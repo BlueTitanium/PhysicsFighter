@@ -69,16 +69,21 @@ vertexarray = [{x:100,y:100},{x:200,y:200}]
 var ground = Bodies.rectangle(600, 610, 1210, 60, { isStatic: true});
 var wall = Bodies.rectangle(0, 35, 60, 1210, { isStatic: true});
 var wall2 = Bodies.rectangle(1210, 35, 60, 1210, { isStatic: true});
-var ground2 = Bodies.rectangle(600, -300, 1210, 60, { isStatic: true});
+var ground2 = Bodies.rectangle(600, 0, 1210, 60, { isStatic: true});
 var line = Bodies.fromVertices(200,200,vertexarray)
 
 Matter.Events.on(engine, 'beforeTick', function() {
         // center view at player
-        Matter.Bounds.shift(render.bounds,
-        {
-            x: player.position.x - window.innerWidth / 2,
-            y: player.position.y - window.innerHeight / 2
-        });
+        var collision = Matter.SAT.collides(player, player2);
+
+        if (collision.collided) {
+            if (Math.sqrt(player.velocity.x*player.velocity.x+player.velocity.y*player.velocity.y) >= Math.sqrt(player2.velocity.x*player2.velocity.x+player2.velocity.y*player2.velocity.y)){
+              World.add(engine.world, Bodies.rectangle(0, 35, 60, 1210, { isStatic: true, background: 'green'}))
+            }
+            else{
+              World.add(engine.world, Bodies.rectangle(0, 35, 60, 1210, { isStatic: true, background: 'green'}))
+            }
+        }
       });
 
 var mouse = Mouse.create(render.canvas);
