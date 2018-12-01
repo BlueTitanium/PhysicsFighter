@@ -43,7 +43,7 @@ boxA.frictionAir = 0;
 
 var ground = Bodies.rectangle(600, 610, 1210, 60, { isStatic: true});
 
-Matter.Body.applyForce(boxA, {x: boxA.position.x, y: boxA.position.y}, {x: 0.05, y: 0});
+
 Matter.Events.on(engine, 'beforeTick', function() {
         // center view at player
         Matter.Bounds.shift(render.bounds,
@@ -52,43 +52,31 @@ Matter.Events.on(engine, 'beforeTick', function() {
             y: boxA.position.y - window.innerHeight / 2
         });
       });
-// add all of the bodies to the world
-var mouse = Mouse.create(render.canvas),
-        mouseConstraint = MouseConstraint.create(engine, {
-            mouse: mouse,
-            constraint: {
-                stiffness: 0.2,
-                render: {
-                    visible: false
-                }
-            }
-        });
-document.addEventListener("keydown",function(e){
-          if(e.key == 'a'){
-            var letter = Bodies.rectangle(400,400, 80, 80, {
-              render: {
-                   fillStyle: 'transparent',
-                   strokeStyle: 'black',
-                   lineWidth: 4
-              },
-              friction: 0,
-              frictionAir: 0,
-              isStatic: true
-            });
-            World.add(engine.world,letter);
-          }
-});
-World.add(engine.world, [boxA, ground], mouseConstraint);
+
+var mouse = Mouse.create(render.canvas);
+
+
+
+
+    // keep the mouse in sync with rendering
+    render.mouse = mouse;
+
+    // fit the render viewport to the scene
+
+
+
+World.add(engine.world, [boxA, ground]);
 Matter.Body.applyForce(boxA, {x: boxA.position.x, y: boxA.position.y}, {x: 0.05, y: 0});
 // run the engine
 Engine.run(engine);
 
 
     // keep the mouse in sync with rendering
-render.mouse = mouse;
+
 document.addEventListener("keydown",function(e){
   if(e.key == 'a'){
-    var letter = Bodies.rectangle(400,400, 80, 80, {
+
+    var letter = Bodies.rectangle(mouse.position.x,mouse.position.y, 80, 80, {
       render: {
            fillStyle: 'transparent',
            strokeStyle: 'black',
@@ -98,6 +86,7 @@ document.addEventListener("keydown",function(e){
       frictionAir: 0,
       isStatic: true
     });
+    World.add(engine.world,letter);
   }
 });
 // run the renderer
