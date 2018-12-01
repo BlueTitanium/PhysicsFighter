@@ -17,14 +17,20 @@ var render = Render.create({
     options: {
     width: window.innerWidth-20,
     height: window.innerHeight-20,
-    enabled: true,
-    background: '#ffffff',
-    showMousePosition: false
   }
 });
 
+render.options.background = 'transparent';
+render.options.wireframeBackground = 'transparent';
+render.options.wireframes = false;
 // create two boxes and a ground
-var boxA = Bodies.rectangle(400, 200, 80, 80);
+var boxA = Bodies.rectangle(400, 200, 80, 80, {
+  render: {
+         fillStyle: 'red',
+         strokeStyle: 'blue',
+         lineWidth: 3
+    }
+});
 var boxB = Bodies.rectangle(450, 50, 80, 80);
 var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
 
