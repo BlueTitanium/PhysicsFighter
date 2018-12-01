@@ -28,7 +28,7 @@ render.options.background = 'transparent';
 
 render.options.wireframes = false;
 // create two boxes and a ground
-var boxA = Bodies.rectangle(400, 200, 80, 80, {
+var player = Bodies.circle(400, 200, 40, {
     render: {
          fillStyle: 'transparent',
          strokeStyle: 'black',
@@ -38,8 +38,8 @@ var boxA = Bodies.rectangle(400, 200, 80, 80, {
 
 
 });
-boxA.friction = 0;
-boxA.frictionAir = 0;
+player.friction = 0;
+player.frictionAir = 0;
 
 var ground = Bodies.rectangle(600, 610, 1210, 60, { isStatic: true});
 
@@ -48,8 +48,8 @@ Matter.Events.on(engine, 'beforeTick', function() {
         // center view at player
         Matter.Bounds.shift(render.bounds,
         {
-            x: boxA.position.x - window.innerWidth / 2,
-            y: boxA.position.y - window.innerHeight / 2
+            x: player.position.x - window.innerWidth / 2,
+            y: player.position.y - window.innerHeight / 2
         });
       });
 
@@ -65,8 +65,8 @@ var mouse = Mouse.create(render.canvas);
 
 
 
-World.add(engine.world, [boxA, ground]);
-Matter.Body.applyForce(boxA, {x: boxA.position.x, y: boxA.position.y}, {x: 0.05, y: 0});
+World.add(engine.world, [player, ground]);
+Matter.Body.applyForce(player, {x: player.position.x, y: player.position.y}, {x: 0.05, y: 0});
 // run the engine
 Engine.run(engine);
 
@@ -76,7 +76,7 @@ Engine.run(engine);
 document.addEventListener("keydown",function(e){
   if(e.key == 'a'){
 
-    var letter = Bodies.rectangle(mouse.position.x,mouse.position.y, 80, 80, {
+    var letter = Bodies.circle(mouse.position.x,mouse.position.y, 40, {
       render: {
            fillStyle: 'transparent',
            strokeStyle: 'black',
