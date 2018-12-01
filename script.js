@@ -83,7 +83,7 @@ Matter.Events.on(engine, 'beforeTick', function() {
 
         if (collision.collided) {
 
-            if (Math.sqrt((player1x*player1x)+(player.velocity.y*player.velocity.y)) >= Math.sqrt((player2.velocity.x*player2.velocity.x)+(player2.velocity.y*player2.velocity.y))){
+            if (Math.sqrt((player1x*player1x)+(player2y*player2y)) >= Math.sqrt((player2x*player2x)+(player2y*player2y))){
               World.add(engine.world, Bodies.rectangle(200 + player1count * 100, 180, 50, 50, { isStatic: true, fillStyle: 'green'}))
               Matter.Body.setPosition(player,{x:200,y:300});
               Matter.Body.setPosition(player2,{x:1000,y:300});
