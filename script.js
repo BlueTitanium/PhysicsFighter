@@ -17,6 +17,8 @@ var render = Render.create({
     options: {
     width: window.innerWidth-20,
     height: window.innerHeight-20,
+    hasBounds: true
+
   }
 });
 
@@ -28,20 +30,28 @@ var boxA = Bodies.rectangle(400, 200, 80, 80, {
   render: {
          fillStyle: 'transparent',
          strokeStyle: 'black',
-         lineWidth: 4
-    }
-});
-var boxB = Bodies.rectangle(450, 50, 80, 80, {
-  render: {
-      fillStyle: 'transparent',
-      strokeStyle: 'black',
-      lineWidth: 3
-    }
-});
-var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
+         lineWidth: 3,
 
+    },
+
+
+});
+boxA.friction = 0;
+boxA.frictionAir = 0;
+
+var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true});
+
+Matter.Body.applyForce(boxA, {x: boxA.position.x, y: boxA.position.y}, {x: 0.1, y: 0});
+Matter.Events.on(engine, 'beforeTick', function() {
+        // center view at player
+        Matter.Bounds.shift(render.bounds,
+        {
+            x: boxA.position.x - window.innerWidth / 2,
+            y: boxA.position.y - window.innerHeight / 2
+        });
+      });
 // add all of the bodies to the world
-World.add(engine.world, [boxA, boxB, ground]);
+World.add(engine.world, [boxA, ground]);
 
 // run the engine
 Engine.run(engine);
