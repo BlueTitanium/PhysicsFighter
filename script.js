@@ -28,7 +28,7 @@ var boxA = Bodies.rectangle(400, 200, 80, 80, {
   render: {
          fillStyle: 'transparent',
          strokeStyle: 'black',
-         lineWidth: 3
+         lineWidth: 4
     }
 });
 var boxB = Bodies.rectangle(450, 50, 80, 80, {
