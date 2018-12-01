@@ -1104,7 +1104,7 @@ console.log(dictionary[Math.floor((Math.random() * dictionary.length) + 1)]);
 document.addEventListener("keydown",function(e){
   if(e.key == 'a'){
 
-    var letter = Bodies.circle(1000,1000, 40, {
+    var letter = Bodies.circle(mouse.position.x,mouse.position.y, 40, {
       render: {
            fillStyle: 'transparent',
            strokeStyle: 'black',
@@ -1114,6 +1114,7 @@ document.addEventListener("keydown",function(e){
       frictionAir: 0,
       isStatic: true
     });
+    x=2;
     vertexarray.push({x:mouse.position.x,y:mouse.position.y})
     Matter.Body.applyForce(player, {x: player.position.x, y: player.position.y}, {x: -.1, y: 0});
   }
