@@ -1,3 +1,20 @@
+function readTextFile(file)
+{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+                alert(allText);
+            }
+        }
+    }
+    rawFile.send(null);
+}
 function start(){
 // module aliases
 var Engine = Matter.Engine,
@@ -40,9 +57,9 @@ var player = Bodies.circle(400, 200, 40, {
 });
 player.friction = 0;
 player.frictionAir = 0;
-
+vertexarray = [{x:100,y:100},{x:200,y:200}]
 var ground = Bodies.rectangle(600, 610, 1210, 60, { isStatic: true});
-
+var line = Bodies.fromVertices(200,200,vertexarray)
 
 Matter.Events.on(engine, 'beforeTick', function() {
         // center view at player
@@ -58,9 +75,28 @@ var mouse = Mouse.create(render.canvas);
     render.mouse = mouse;
     // fit the render viewport to the scene
 World.add(engine.world, [player, ground]);
-Matter.Body.applyForce(player, {x: player.position.x, y: player.position.y}, {x: 0.05, y: 0});
+// Matter.Body.applyForce(player, {x: player.position.x, y: player.position.y}, {x: 0.2, y: 0});
 // run the engine
 Engine.run(engine);
+var alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+var vertexSets = []
+$('#svg').find('path').each(function(i, path){
+      // vertexSets.push(Svg.pathToVertices(path, 100));
+      var v = Matter.Bodies.fromVertices(mouse.position.x,mouse.position.y, Matter.Svg.pathToVertices(path, 20), {
+        render: {
+          fillStyle: 'black',
+          strokeStyle: 'black'
+        }
+      }, true);
+    console.log(v)
+    vertexSets.push(v);
+    World.add(engine.world, v);
+  });
+  vertexSets.push(ground)
+
+  // add all of the bodies to the world
+
+
 var text = `a
 ability
 able
@@ -1063,10 +1099,12 @@ your
 yourself`;
 var dictionary = text.split("\n");
 console.log(dictionary[Math.floor((Math.random() * dictionary.length) + 1)]);
+
+
 document.addEventListener("keydown",function(e){
   if(e.key == 'a'){
-    
-    var letter = Bodies.circle(mouse.position.x,mouse.position.y, 40, {
+
+    var letter = Bodies.circle(1000,1000, 40, {
       render: {
            fillStyle: 'transparent',
            strokeStyle: 'black',
@@ -1076,7 +1114,8 @@ document.addEventListener("keydown",function(e){
       frictionAir: 0,
       isStatic: true
     });
-    World.add(engine.world,letter);
+    vertexarray.push({x:mouse.position.x,y:mouse.position.y})
+    Matter.Body.applyForce(player, {x: player.position.x, y: player.position.y}, {x: -.1, y: 0});
   }
   if(e.key == 'b'){
 
@@ -1118,7 +1157,8 @@ document.addEventListener("keydown",function(e){
       frictionAir: 0,
       isStatic: true
     });
-    World.add(engine.world,letter);
+
+    Matter.Body.applyForce(player, {x: player.position.x, y: player.position.y}, {x: 0.1, y: 0});
   }
   if(e.key == 'e'){
 
@@ -1328,7 +1368,8 @@ document.addEventListener("keydown",function(e){
       frictionAir: 0,
       isStatic: true
     });
-    World.add(engine.world,letter);
+
+    Matter.Body.applyForce(player, {x: player.position.x, y: player.position.y}, {x: 0, y: 0.1});
   }
   if(e.key == 't'){
 
@@ -1384,7 +1425,8 @@ document.addEventListener("keydown",function(e){
       frictionAir: 0,
       isStatic: true
     });
-    World.add(engine.world,letter);
+
+    Matter.Body.applyForce(player, {x: player.position.x, y: player.position.y}, {x: 0, y: -0.15});
   }
   if(e.key == 'x'){
 
