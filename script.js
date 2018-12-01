@@ -45,7 +45,7 @@ render.options.background = 'transparent';
 
 render.options.wireframes = false;
 // create two boxes and a ground
-var player = Bodies.circle(400, 200, 40, {
+var player = Bodies.circle(200, 300, 40, {
     render: {
          fillStyle: 'transparent',
          strokeStyle: 'black',
@@ -55,7 +55,7 @@ var player = Bodies.circle(400, 200, 40, {
 
 
 });
-var player2 = Bodies.circle(800, 200, 40, {
+var player2 = Bodies.circle(1000, 300, 40, {
     render: {
          fillStyle: 'transparent',
          strokeStyle: 'black',
@@ -71,18 +71,36 @@ var wall = Bodies.rectangle(0, 35, 60, 1210, { isStatic: true});
 var wall2 = Bodies.rectangle(1210, 35, 60, 1210, { isStatic: true});
 var ground2 = Bodies.rectangle(600, 0, 1210, 60, { isStatic: true});
 var line = Bodies.fromVertices(200,200,vertexarray)
-
+player1count = 0
+player2count = 0
 Matter.Events.on(engine, 'beforeTick', function() {
         // center view at player
         var collision = Matter.SAT.collides(player, player2);
 
         if (collision.collided) {
-            if (Math.sqrt(player.velocity.x*player.velocity.x+player.velocity.y*player.velocity.y) >= Math.sqrt(player2.velocity.x*player2.velocity.x+player2.velocity.y*player2.velocity.y)){
-              World.add(engine.world, Bodies.rectangle(0, 35, 60, 1210, { isStatic: true, background: 'green'}))
+
+            if (Math.sqrt((player.velocity.x*player.velocity.x)+(player.velocity.y*player.velocity.y)) >= Math.sqrt((player2.velocity.x*player2.velocity.x)+(player2.velocity.y*player2.velocity.y))){
+              World.add(engine.world, Bodies.rectangle(200 + player1count * 100, 180, 50, 50, { isStatic: true, fillStyle: 'green'}))
+              Matter.Body.setPosition(player,{x:200,y:300});
+              Matter.Body.setPosition(player2,{x:1000,y:300});
+              Matter.Body.setVelocity(player,{x:0,y:0})
+              Matter.Body.setVelocity(player2,{x:0,y:0})
+              player1count++;
             }
             else{
-              World.add(engine.world, Bodies.rectangle(0, 35, 60, 1210, { isStatic: true, background: 'green'}))
+              World.add(engine.world, Bodies.rectangle(800 + player2count * 100, 180, 50, 50, { isStatic: true, fillStyle: 'green'}))
+              Matter.Body.setPosition(player,{x:200,y:300});
+              Matter.Body.setPosition(player2,{x:1000,y:300});
+              Matter.Body.setVelocity(player,{x:0,y:0})
+              Matter.Body.setVelocity(player2,{x:0,y:0})
+              player2count++;
             }
+        }
+        if (player1count === 3){
+          document.write("Player 1 Wins!");
+        }
+        if (player2count === 3){
+          document.write("Player 2 Wins!");
         }
       });
 
@@ -96,19 +114,19 @@ World.add(engine.world, [player,player2, ground, wall, wall2, ground2]);
 Engine.run(engine);
 var alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 var vertexSets = []
-$('#svg').find('path').each(function(i, path){
-      // vertexSets.push(Svg.pathToVertices(path, 100));
-      var v = Matter.Bodies.fromVertices(mouse.position.x,mouse.position.y, Matter.Svg.pathToVertices(path, 20), {
-        render: {
-          fillStyle: 'black',
-          strokeStyle: 'black'
-        }
-      }, true);
-    console.log(v)
-    vertexSets.push(v);
-    World.add(engine.world, v);
-  });
-  vertexSets.push(ground)
+// $('#svg').find('path').each(function(i, path){
+//       // vertexSets.push(Svg.pathToVertices(path, 100));
+//       var v = Matter.Bodies.fromVertices(mouse.position.x,mouse.position.y, Matter.Svg.pathToVertices(path, 20), {
+//         render: {
+//           fillStyle: 'black',
+//           strokeStyle: 'black'
+//         }
+//       }, true);
+//     console.log(v)
+//     vertexSets.push(v);
+//     World.add(engine.world, v);
+//   });
+//   vertexSets.push(ground)
 
   // add all of the bodies to the world
 
