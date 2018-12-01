@@ -17,8 +17,8 @@ var render = Render.create({
     options: {
     width: window.innerWidth-20,
     height: window.innerHeight-20,
-    hasBounds: true
-
+    hasBounds: true,
+    showVelocity: true
   }
 });
 
@@ -39,9 +39,9 @@ var boxA = Bodies.rectangle(400, 200, 80, 80, {
 boxA.friction = 0;
 boxA.frictionAir = 0;
 
-var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true});
+var ground = Bodies.rectangle(600, 610, 1210, 60, { isStatic: true});
 
-Matter.Body.applyForce(boxA, {x: boxA.position.x, y: boxA.position.y}, {x: 0.1, y: 0});
+Matter.Body.applyForce(boxA, {x: boxA.position.x, y: boxA.position.y}, {x: 0.05, y: 0});
 Matter.Events.on(engine, 'beforeTick', function() {
         // center view at player
         Matter.Bounds.shift(render.bounds,
