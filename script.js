@@ -75,11 +75,15 @@ player1count = 0
 player2count = 0
 Matter.Events.on(engine, 'beforeTick', function() {
         // center view at player
+        player1x = player.velocity.x
+        player1y = player.velocity.y
+        player2x = player2.velocity.x
+        player2y = player2.velocity.y
         var collision = Matter.SAT.collides(player, player2);
 
         if (collision.collided) {
 
-            if (Math.sqrt((player.velocity.x*player.velocity.x)+(player.velocity.y*player.velocity.y)) >= Math.sqrt((player2.velocity.x*player2.velocity.x)+(player2.velocity.y*player2.velocity.y))){
+            if (Math.sqrt((player1x*player1x)+(player.velocity.y*player.velocity.y)) >= Math.sqrt((player2.velocity.x*player2.velocity.x)+(player2.velocity.y*player2.velocity.y))){
               World.add(engine.world, Bodies.rectangle(200 + player1count * 100, 180, 50, 50, { isStatic: true, fillStyle: 'green'}))
               Matter.Body.setPosition(player,{x:200,y:300});
               Matter.Body.setPosition(player2,{x:1000,y:300});
