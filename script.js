@@ -55,10 +55,21 @@ var player = Bodies.circle(400, 200, 40, {
 
 
 });
-player.friction = 0;
-player.frictionAir = 0;
+var player2 = Bodies.circle(800, 200, 40, {
+    render: {
+         fillStyle: 'transparent',
+         strokeStyle: 'black',
+         lineWidth: 3,
+
+    },
+
+
+});
 vertexarray = [{x:100,y:100},{x:200,y:200}]
 var ground = Bodies.rectangle(600, 610, 1210, 60, { isStatic: true});
+var wall = Bodies.rectangle(0, 35, 60, 1210, { isStatic: true});
+var wall2 = Bodies.rectangle(1210, 35, 60, 1210, { isStatic: true});
+var ground2 = Bodies.rectangle(600, -300, 1210, 60, { isStatic: true});
 var line = Bodies.fromVertices(200,200,vertexarray)
 
 Matter.Events.on(engine, 'beforeTick', function() {
@@ -74,7 +85,7 @@ var mouse = Mouse.create(render.canvas);
     // keep the mouse in sync with rendering
     render.mouse = mouse;
     // fit the render viewport to the scene
-World.add(engine.world, [player, ground]);
+World.add(engine.world, [player,player2, ground, wall, wall2, ground2]);
 // Matter.Body.applyForce(player, {x: player.position.x, y: player.position.y}, {x: 0.2, y: 0});
 // run the engine
 Engine.run(engine);
