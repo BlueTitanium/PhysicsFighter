@@ -20,7 +20,7 @@ var render = Render.create({
   }
 });
 
-render.options.background = '#000000';
+render.options.background = 'transparent';
 render.options.wireframeBackground = 'transparent';
 render.options.wireframes = false;
 // create two boxes and a ground
