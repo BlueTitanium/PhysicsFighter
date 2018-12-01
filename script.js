@@ -15,7 +15,10 @@ var render = Render.create({
     element: document.body,
     engine: engine,
     options: {
-    background: '#ff0000',
+    width: window.innerWidth-20,
+    height: window.innerHeight-20,
+    enabled: true,
+    background: '#ffffff',
     showMousePosition: false
   }
 });
