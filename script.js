@@ -16,7 +16,9 @@ var render = Render.create({
     engine: engine,
     options: {
     background: '#ff0000',
-    showMousePosition: false
+    showMousePosition: false,
+    width: window.innerWidth-20,
+    height: window.innerHeight-20
   }
 });
 
