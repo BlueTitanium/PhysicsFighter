@@ -4,6 +4,8 @@ var Engine = Matter.Engine,
     Render = Matter.Render,
     World = Matter.World,
     Bodies = Matter.Bodies;
+var canvas = document.createElement('canvas'),
+    context = canvas.getContext('2d');
 
 // create an engine
 var engine = Engine.create();
@@ -11,7 +13,11 @@ var engine = Engine.create();
 // create a renderer
 var render = Render.create({
     element: document.body,
-    engine: engine
+    engine: engine,
+    options: {
+    background: '#ff0000',
+    showMousePosition: false
+  }
 });
 
 // create two boxes and a ground
